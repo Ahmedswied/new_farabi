@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const StandardCrew = () => {
-  const { t } = useTranslation('crew');
   const [expandedPositions, setExpandedPositions] = useState<string[]>([]);
 
   const crewStructure = [

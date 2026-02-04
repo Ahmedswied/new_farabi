@@ -4,10 +4,8 @@ import { Layout } from '@/components/layout/Layout';
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
 import { useCrewStore } from '@/store/useCrewStore';
-import { useTranslation } from 'next-i18next';
 
 export default function ContactPage() {
-  const { t } = useTranslation('contact');
   const { addCrewRequest } = useCrewStore();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
