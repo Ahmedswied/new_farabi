@@ -1,7 +1,6 @@
 'use client';
 
 import { Layout } from '@/components/layout/Layout';
-import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 

@@ -23,8 +23,9 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
-            <Link href="/" className="text-2xl font-bold text-blue-600">
-              ALFarabi
+            <Link href="/" className="flex items-center">
+              <img src="/logo.svg" alt="ALFarabi logo" className="w-10 h-10 mr-3 animate-spin-slow" />
+              <span className="text-2xl font-bold text-gray-800">ALFarabi</span>
             </Link>
           </div>
 
@@ -34,7 +35,7 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`hover:text-blue-600 transition-colors ${item.className || ''}`}
+                className={`text-gray-700 hover:text-blue-600 transition-colors ${item.className || ''}`}
               >
                 {item.name}
               </Link>
@@ -48,8 +49,9 @@ export function Navbar() {
           <button
             className="md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
           >
-            {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {menuOpen ? <X className="w-6 h-6 text-gray-800" /> : <Menu className="w-6 h-6 text-gray-800" />}
           </button>
         </div>
 
@@ -60,7 +62,7 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`block py-2 hover:text-blue-600 transition-colors ${item.className || ''}`}
+                className={`block py-2 text-gray-700 hover:text-blue-600 transition-colors ${item.className || ''}`}
                 onClick={() => setMenuOpen(false)}
               >
                 {item.name}
