@@ -13,6 +13,9 @@
 - [x] تصحيح جميع أخطاء TypeScript
 - [x] إصلاح واجهات البيانات (Interfaces)
 - [x] تحديث Zustand store مع جميع الدوال المطلوبة
+- [x] إضافة `@tailwindcss/postcss` إلى devDependencies
+- [x] تحديث `postcss.config.mjs` لـ Tailwind CSS v4
+- [x] إزالة `NODE_ENV="production"` من netlify.toml
 - [x] ✅ Build الناجح - `npm run build` اجتياز بدون أخطاء
 
 ### تحسينات UX
