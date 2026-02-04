@@ -1,7 +1,10 @@
-'use client';
-
 import { Layout } from '@/components/layout/Layout';
-import { Calendar, Users, Briefcase, CheckCircle } from 'lucide-react';
+import { Calendar, Users, CheckCircle, Award, TrendingUp } from 'lucide-react';
+
+export const metadata = {
+  title: 'Projects | ALFarabi International Group',
+  description: 'Explore our successful projects across Egypt - from construction to infrastructure.',
+};
 
 interface Project {
   id: string;
@@ -14,7 +17,76 @@ interface Project {
   status: 'completed' | 'ongoing' | 'upcoming';
   description: string;
   highlights: string[];
+  icon: string;
 }
+
+const ProjectCard = ({ project }: { project: Project }) => {
+  const statusConfig = {
+    completed: { color: 'from-green-500 to-emerald-600', icon: '✓', label: 'Completed' },
+    ongoing: { color: 'from-blue-500 to-blue-600', icon: '⚙️', label: 'In Progress' },
+    upcoming: { color: 'from-amber-500 to-orange-600', icon: '📋', label: 'Upcoming' }
+  };
+
+  const config = statusConfig[project.status];
+
+  return (
+    <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in-up border-t-4 border-blue-600">
+      <div className={`bg-gradient-to-r ${config.color} text-white p-6`}>
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h3 className="text-2xl font-bold mb-2">{project.name}</h3>
+            <p className="text-opacity-90 text-white">{project.client}</p>
+          </div>
+          <div className="text-4xl">{project.icon}</div>
+        </div>
+      </div>
+
+      <div className="p-6">
+        <p className="text-gray-700 mb-6">{project.description}</p>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 pb-6 border-b border-gray-200">
+          <div>
+            <p className="text-xs text-gray-500 uppercase font-semibold mb-1">Location</p>
+            <p className="font-bold text-gray-900">{project.location}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 uppercase font-semibold mb-1">Type</p>
+            <p className="font-bold text-gray-900">{project.type}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 uppercase font-semibold mb-1">Duration</p>
+            <p className="font-bold text-gray-900">{project.duration}</p>
+          </div>
+          <div>
+            <p className="text-xs text-gray-500 uppercase font-semibold mb-1">Crew Size</p>
+            <p className="font-bold text-gray-900 flex items-center gap-2">
+              <Users className="w-4 h-4" /> {project.crewSize}
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 className="font-bold text-gray-900 mb-4">Key Highlights</h4>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {project.highlights.map((highlight, idx) => (
+              <li key={idx} className="flex items-start gap-3 text-gray-700">
+                <span className="text-blue-600 font-bold mt-1">✓</span>
+                <span>{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
+        <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-white bg-gradient-to-r ${config.color}`}>
+          <span>{config.icon}</span>
+          {config.label}
+        </span>
+      </div>
+    </div>
+  );
+};
 
 export default function ProjectsPage() {
   const projects: Project[] = [
@@ -27,13 +99,14 @@ export default function ProjectsPage() {
       duration: '18 months',
       crewSize: 88,
       status: 'ongoing',
-      description: 'Major construction project for government administrative buildings',
+      description: 'Major construction project for government administrative buildings featuring advanced infrastructure.',
       highlights: [
         'Zero lost-time accidents',
         'On-schedule delivery',
         '100% safety compliance',
         'Advanced equipment utilization'
-      ]
+      ],
+      icon: '🏗️'
     },
     {
       id: 'port-expansion',
@@ -44,13 +117,14 @@ export default function ProjectsPage() {
       duration: '24 months',
       crewSize: 88,
       status: 'ongoing',
-      description: 'Port terminal expansion and modernization project',
+      description: 'Port terminal expansion and modernization with specialized maritime operations.',
       highlights: [
         'Complex logistics coordination',
         'Maritime safety certifications',
         'Equipment handling expertise',
         'International standards compliance'
-      ]
+      ],
+      icon: '🚢'
     },
     {
       id: 'resort-complex',
@@ -61,13 +135,14 @@ export default function ProjectsPage() {
       duration: '14 months',
       crewSize: 65,
       status: 'completed',
-      description: 'Luxury resort development with accommodation and dining facilities',
+      description: 'Luxury resort development with accommodation and premium dining facilities.',
       highlights: [
         'Successfully completed ahead of schedule',
         'High-end finishing standards',
         'Accommodation support for 85 workers',
         'Full safety record maintained'
-      ]
+      ],
+      icon: '🏨'
     },
     {
       id: 'pipeline-project',
@@ -78,13 +153,14 @@ export default function ProjectsPage() {
       duration: '12 months',
       crewSize: 88,
       status: 'completed',
-      description: 'Natural gas pipeline installation and commissioning',
+      description: 'Natural gas pipeline installation and commissioning in remote locations.',
       highlights: [
         'High-pressure equipment handling',
         'Specialized welding teams',
         'Environmental compliance',
         'Remote site expertise'
-      ]
+      ],
+      icon: '⚡'
     },
     {
       id: 'tech-park',
@@ -95,13 +171,14 @@ export default function ProjectsPage() {
       duration: '20 months',
       crewSize: 88,
       status: 'ongoing',
-      description: 'Data center and office complex for tech sector development',
+      description: 'Data center and office complex for digital transformation initiative.',
       highlights: [
         'Specialized electrical installation',
         'HVAC and cooling systems',
         'Data center precision work',
         'Future-ready infrastructure'
-      ]
+      ],
+      icon: '💻'
     },
     {
       id: 'highway-upgrade',
@@ -112,175 +189,150 @@ export default function ProjectsPage() {
       duration: '16 months',
       crewSize: 88,
       status: 'upcoming',
-      description: 'Major highway upgrade and widening project',
+      description: 'Major highway upgrade and widening project enhancing Cairo transportation network.',
       highlights: [
         'Heavy equipment operation',
         'Traffic management coordination',
         'Road safety standards',
         'Schedule precision required'
-      ]
+      ],
+      icon: '🛣️'
     }
   ];
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'bg-green-100 text-green-800';
-      case 'ongoing':
-        return 'bg-blue-100 text-blue-800';
-      case 'upcoming':
-        return 'bg-amber-100 text-amber-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    if (status === 'completed') return <CheckCircle className="w-5 h-5" />;
-    return null;
-  };
-
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">Our Projects</h1>
-          <p className="text-lg text-gray-700">
-            Successful execution of complex projects across Egypt
-          </p>
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 animate-fade-in-down">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Projects</h1>
+          <p className="text-xl text-blue-100">Successful execution of complex projects across Egypt and the region</p>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          <div className="bg-green-50 p-6 rounded-lg border-l-4 border-green-600">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xl font-bold">Completed</h3>
-              <CheckCircle className="w-6 h-6 text-green-600" />
+      {/* Main Content */}
+      <div className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Project Statistics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 stagger-children">
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-green-600 animate-fade-in-up">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Completed</h3>
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+              <p className="text-4xl font-bold text-green-600 mb-2">3</p>
+              <p className="text-gray-600">Projects delivered with excellence</p>
             </div>
-            <p className="text-3xl font-bold text-green-600">3</p>
-            <p className="text-gray-600 text-sm">Projects delivered successfully</p>
-          </div>
-          <div className="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-600">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xl font-bold">In Progress</h3>
-              <Briefcase className="w-6 h-6 text-blue-600" />
-            </div>
-            <p className="text-3xl font-bold text-blue-600">3</p>
-            <p className="text-gray-600 text-sm">Active projects on-going</p>
-          </div>
-          <div className="bg-amber-50 p-6 rounded-lg border-l-4 border-amber-600">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xl font-bold">Pipeline</h3>
-              <Calendar className="w-6 h-6 text-amber-600" />
-            </div>
-            <p className="text-3xl font-bold text-amber-600">1</p>
-            <p className="text-gray-600 text-sm">Upcoming projects</p>
-          </div>
-        </div>
 
-        <div className="space-y-6">
-          {projects.map(project => (
-            <div
-              key={project.id}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow overflow-hidden border-l-4 border-blue-600"
-            >
-              <div className="p-6">
-                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-2xl font-bold">{project.name}</h3>
-                      <span
-                        className={`px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1 ${getStatusColor(
-                          project.status
-                        )}`}
-                      >
-                        {getStatusIcon(project.status)}
-                        {project.status.charAt(0).toUpperCase() + project.status.slice(1)}
-                      </span>
-                    </div>
-                    <p className="text-gray-600">{project.client}</p>
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-blue-600 animate-fade-in-up">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-gray-900">In Progress</h3>
+                <TrendingUp className="w-8 h-8 text-blue-600" />
+              </div>
+              <p className="text-4xl font-bold text-blue-600 mb-2">3</p>
+              <p className="text-gray-600">Active projects on-going</p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-amber-600 animate-fade-in-up">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-gray-900">Pipeline</h3>
+                <Calendar className="w-8 h-8 text-amber-600" />
+              </div>
+              <p className="text-4xl font-bold text-amber-600 mb-2">1</p>
+              <p className="text-gray-600">Upcoming opportunities</p>
+            </div>
+          </div>
+
+          {/* Projects Grid */}
+          <div className="mb-16">
+            <h2 className="text-4xl font-bold mb-12 text-gray-900">Project Portfolio</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 stagger-children">
+              {projects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          </div>
+
+          {/* Why Our Projects Succeed */}
+          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl p-12 border-l-4 border-blue-600 animate-fade-in-up">
+            <div className="flex items-center gap-3 mb-8">
+              <Award className="w-10 h-10 text-blue-600" />
+              <h3 className="text-3xl font-bold text-gray-900">Why Our Projects Succeed</h3>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-600 text-white font-bold">
+                    1
                   </div>
                 </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">Experienced Crew</p>
+                  <p className="text-gray-700 text-sm">Proven track record with specialized expertise</p>
+                </div>
+              </div>
 
-                <p className="text-gray-700 mb-4">{project.description}</p>
-
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Location</p>
-                    <p className="font-semibold">{project.location}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Type</p>
-                    <p className="font-semibold">{project.type}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Duration</p>
-                    <p className="font-semibold">{project.duration}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Crew Size</p>
-                    <p className="font-semibold flex items-center gap-1">
-                      <Users className="w-4 h-4" />
-                      {project.crewSize}
-                    </p>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-600 text-white font-bold">
+                    2
                   </div>
                 </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">Advanced Technology</p>
+                  <p className="text-gray-700 text-sm">State-of-the-art equipment and tools</p>
+                </div>
+              </div>
 
-                <div className="bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-semibold mb-3">Project Highlights:</h4>
-                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    {project.highlights.map((highlight, idx) => (
-                      <li key={idx} className="flex items-center gap-2 text-gray-700">
-                        <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-600 text-white font-bold">
+                    3
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">Safety First</p>
+                  <p className="text-gray-700 text-sm">Comprehensive protocols and certifications</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-600 text-white font-bold">
+                    4
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">Quality Assurance</p>
+                  <p className="text-gray-700 text-sm">Strict standards at every stage</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-600 text-white font-bold">
+                    5
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">On-Time Delivery</p>
+                  <p className="text-gray-700 text-sm">Reliable timeline management</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="flex-shrink-0">
+                  <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-blue-600 text-white font-bold">
+                    6
+                  </div>
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 mb-1">Communication</p>
+                  <p className="text-gray-700 text-sm">Excellent client coordination</p>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="bg-blue-50 p-8 rounded-lg border-l-4 border-blue-600 mt-12">
-          <h3 className="text-2xl font-bold mb-4">Why Our Projects Succeed</h3>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                ✓
-              </span>
-              <span className="text-gray-700">Experienced crew with proven track record</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                ✓
-              </span>
-              <span className="text-gray-700">Advanced equipment and technology</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                ✓
-              </span>
-              <span className="text-gray-700">Comprehensive safety protocols</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                ✓
-              </span>
-              <span className="text-gray-700">Strict quality assurance standards</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                ✓
-              </span>
-              <span className="text-gray-700">On-time project delivery</span>
-            </li>
-            <li className="flex items-start gap-3">
-              <span className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">
-                ✓
-              </span>
-              <span className="text-gray-700">Excellent communication and reporting</span>
-            </li>
-          </ul>
+          </div>
         </div>
       </div>
     </Layout>

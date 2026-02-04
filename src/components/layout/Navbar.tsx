@@ -2,10 +2,15 @@
 
 import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -17,6 +22,36 @@ export function Navbar() {
     { name: 'Contact', href: '/contact' },
     { name: 'Admin', href: '/admin/login', className: 'font-semibold text-blue-600' }
   ];
+
+  if (!mounted) {
+    return (
+      <nav className="bg-white shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-20">
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center">
+                <img src="/images/logo.png" alt="ALFarabi logo" className="w-16 h-16 mr-3 animate-bounce-slow" />
+                <span className="text-2xl font-bold text-gray-800">ALFarabi</span>
+              </Link>
+            </div>
+            <div className="hidden md:flex items-center gap-8">
+              {navItems.map(item => (
+                <Link key={item.href} href={item.href} className={`text-gray-700 hover:text-blue-600 transition-colors ${item.className || ''}`}>
+                  {item.name}
+                </Link>
+              ))}
+              <button className="px-3 py-1 border border-blue-600 text-blue-600 rounded hover:bg-blue-50">
+                EN / AR
+              </button>
+            </div>
+            <button className="md:hidden" aria-label="Toggle menu">
+              <Menu className="w-6 h-6 text-gray-800" />
+            </button>
+          </div>
+        </div>
+      </nav>
+    );
+  }
 
   return (
     <nav className="bg-white shadow-md">

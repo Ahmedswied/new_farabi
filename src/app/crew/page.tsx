@@ -1,181 +1,202 @@
-'use client';
-
 import { Layout } from '@/components/layout/Layout';
-import { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+import { MapPin, Users, Briefcase, Target } from 'lucide-react';
 
-const StandardCrew = () => {
-  const [expandedPositions, setExpandedPositions] = useState<string[]>([]);
+export const metadata = {
+  title: 'Our Crew | ALFarabi International Group',
+  description: 'Meet our professional 88-person crew structure and customizable team configurations.',
+};
 
-  const crewStructure = [
+interface CrewPosition {
+  id: string;
+  title: string;
+  count: number;
+  description: string;
+  certifications: string[];
+  emoji: string;
+}
+
+const CrewCard = ({ position }: { position: CrewPosition }) => (
+  <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden animate-fade-in-up border-l-4 border-blue-600">
+    <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
+      <div className="flex items-start justify-between mb-3">
+        <h4 className="text-xl font-bold">{position.title}</h4>
+        <div className="text-3xl">{position.emoji}</div>
+      </div>
+      <p className="text-blue-100">{position.count}x Position(s)</p>
+    </div>
+    <div className="p-6">
+      <p className="text-gray-700 mb-4">{position.description}</p>
+      <div>
+        <h5 className="font-semibold text-gray-900 mb-3">Certifications:</h5>
+        <ul className="space-y-2">
+          {position.certifications.map((cert, idx) => (
+            <li key={idx} className="flex items-center gap-2 text-gray-700 text-sm">
+              <span className="text-blue-600">✓</span> {cert}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+);
+
+export default function CrewPage() {
+  const crewStructure: CrewPosition[] = [
     {
       id: 'project-manager',
       title: 'Project Manager',
       count: 1,
       description: 'Overall project supervision and coordination',
-      certifications: ['PMP', 'NEBOSH', 'OSHA 30']
+      certifications: ['PMP', 'NEBOSH', 'OSHA 30'],
+      emoji: '👔'
     },
     {
       id: 'site-engineer',
       title: 'Site Engineers',
       count: 2,
       description: 'Technical supervision and quality assurance',
-      certifications: ['Civil Engineering Degree', 'OSHA 30', 'ISO 9001']
+      certifications: ['Civil Engineering Degree', 'OSHA 30', 'ISO 9001'],
+      emoji: '🛠️'
     },
     {
       id: 'supervisor',
       title: 'Supervisors',
       count: 4,
       description: 'Crew supervision and daily planning',
-      certifications: ['First Aid', 'NEBOSH', 'HSE Certification']
+      certifications: ['First Aid', 'NEBOSH', 'HSE Certification'],
+      emoji: '👷'
     },
     {
       id: 'safety-officer',
       title: 'Safety Officer',
       count: 1,
       description: 'Safety compliance and incident management',
-      certifications: ['NEBOSH', 'OSHA', 'Risk Assessment']
+      certifications: ['NEBOSH', 'OSHA', 'Risk Assessment'],
+      emoji: '🛡️'
     },
     {
       id: 'skilled-workers',
       title: 'Skilled Workers',
       count: 50,
       description: 'Experienced craftsmen and technicians',
-      certifications: ['Trade Certification', 'Safety Training', 'Equipment Operation']
+      certifications: ['Trade Certification', 'Safety Training', 'Equipment Operation'],
+      emoji: '⚒️'
     },
     {
       id: 'general-laborers',
       title: 'General Laborers',
       count: 25,
       description: 'Support workers with basic safety training',
-      certifications: ['Safety Induction', 'First Aid', 'Health Certification']
+      certifications: ['Safety Induction', 'First Aid', 'Health Certification'],
+      emoji: '💪'
     },
     {
       id: 'medic',
       title: 'Medical Officer',
       count: 1,
       description: 'On-site medical support',
-      certifications: ['RN/Paramedic', 'First Aid Trainer', 'Emergency Response']
+      certifications: ['RN/Paramedic', 'First Aid Trainer', 'Emergency Response'],
+      emoji: '🏥'
     },
     {
       id: 'logistics',
       title: 'Logistics Coordinator',
       count: 1,
       description: 'Materials and equipment management',
-      certifications: ['Logistics Certification', 'Equipment Handling', 'Inventory Management']
+      certifications: ['Logistics Certification', 'Equipment Handling', 'Inventory Management'],
+      emoji: '📦'
     },
     {
       id: 'admin',
       title: 'Administrative Staff',
       count: 4,
       description: 'Documentation and payroll management',
-      certifications: ['Data Management', 'Office Management', 'Communication Skills']
+      certifications: ['Data Management', 'Office Management', 'Communication Skills'],
+      emoji: '📋'
     }
   ];
 
-  const togglePosition = (id: string) => {
-    setExpandedPositions(prev =>
-      prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
-    );
-  };
-
-  return (
-    <div className="space-y-8">
-      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12 rounded-lg">
-        <h2 className="text-4xl font-bold mb-4">Standard 88-Person Crew</h2>
-        <p className="text-lg">Fully trained and certified workforce ready for any project</p>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-600">
-          <p className="text-sm text-gray-600">Total Crew Size</p>
-          <p className="text-3xl font-bold text-blue-600">88</p>
-        </div>
-        <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-600">
-          <p className="text-sm text-gray-600">Management</p>
-          <p className="text-3xl font-bold text-green-600">8</p>
-        </div>
-        <div className="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-600">
-          <p className="text-sm text-gray-600">Skilled Workers</p>
-          <p className="text-3xl font-bold text-yellow-600">50</p>
-        </div>
-        <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-600">
-          <p className="text-sm text-gray-600">Support</p>
-          <p className="text-3xl font-bold text-purple-600">30</p>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {crewStructure.map(position => (
-          <div key={position.id} className="border rounded-lg overflow-hidden bg-white shadow">
-            <button
-              onClick={() => togglePosition(position.id)}
-              className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
-            >
-              <div className="flex-1 text-left">
-                <h3 className="text-lg font-semibold">{position.title}</h3>
-                <p className="text-gray-600 text-sm">{position.description}</p>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="text-2xl font-bold text-blue-600">{position.count}</span>
-                {expandedPositions.includes(position.id) ? (
-                  <ChevronUp className="w-5 h-5" />
-                ) : (
-                  <ChevronDown className="w-5 h-5" />
-                )}
-              </div>
-            </button>
-
-            {expandedPositions.includes(position.id) && (
-              <div className="px-6 py-4 bg-gray-50 border-t">
-                <h4 className="font-semibold mb-3">Required Certifications:</h4>
-                <ul className="space-y-2">
-                  {position.certifications.map((cert, idx) => (
-                    <li key={idx} className="flex items-center gap-2 text-gray-700">
-                      <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-                      {cert}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <div className="bg-blue-50 p-8 rounded-lg border-l-4 border-blue-600 mt-12">
-        <h3 className="text-2xl font-bold mb-4">Custom Crew Configuration</h3>
-        <p className="text-gray-700 mb-4">
-          Need a different crew composition? We can customize the crew based on your project requirements:
-        </p>
-        <ul className="space-y-2 text-gray-700">
-          <li className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-            Adjust the number of supervisors and engineers
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-            Select specialized skills (welding, carpentry, electrical, mechanical)
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-            Add specialized equipment operators
-          </li>
-          <li className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
-            Scale up or down based on project timeline
-          </li>
-        </ul>
-      </div>
-    </div>
-  );
-};
-
-export default function CrewPage() {
   return (
     <Layout>
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <StandardCrew />
+      {/* Hero Section */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 animate-fade-in-down">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Professional Team</h1>
+          <p className="text-xl text-blue-100">88-member crew with expert certifications ready for any challenge</p>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="py-20 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 stagger-children">
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-blue-600 animate-fade-in-up">
+              <p className="text-sm text-gray-600 uppercase font-semibold mb-2">Total Crew</p>
+              <p className="text-5xl font-bold text-blue-600">88</p>
+            </div>
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-orange-600 animate-fade-in-up">
+              <p className="text-sm text-gray-600 uppercase font-semibold mb-2">Management</p>
+              <p className="text-5xl font-bold text-orange-600">8</p>
+            </div>
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-green-600 animate-fade-in-up">
+              <p className="text-sm text-gray-600 uppercase font-semibold mb-2">Skilled Workers</p>
+              <p className="text-5xl font-bold text-green-600">50</p>
+            </div>
+            <div className="bg-white rounded-xl shadow-lg p-8 border-t-4 border-indigo-600 animate-fade-in-up">
+              <p className="text-sm text-gray-600 uppercase font-semibold mb-2">Support Staff</p>
+              <p className="text-5xl font-bold text-indigo-600">30</p>
+            </div>
+          </div>
+
+          {/* Crew Structure Grid */}
+          <div className="mb-16">
+            <h2 className="text-4xl font-bold mb-12 text-gray-900">Crew Structure & Positions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
+              {crewStructure.map(position => (
+                <CrewCard key={position.id} position={position} />
+              ))}
+            </div>
+          </div>
+
+          {/* Custom Configuration */}
+          <div className="bg-gradient-to-r from-gray-900 to-blue-900 text-white p-12 rounded-xl shadow-xl animate-fade-in-up">
+            <h3 className="text-3xl font-bold mb-6">Custom Crew Configuration</h3>
+            <p className="text-blue-100 mb-8 text-lg">
+              Need a different crew composition? We can customize based on your specific project requirements:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">⚙️</span>
+                <div>
+                  <h4 className="font-bold text-lg mb-2">Flexible Roles</h4>
+                  <p className="text-blue-100">Adjust supervisors and engineers ratio based on project needs</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">🔧</span>
+                <div>
+                  <h4 className="font-bold text-lg mb-2">Specialized Skills</h4>
+                  <p className="text-blue-100">Welding, carpentry, electrical, mechanical, and more</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">📊</span>
+                <div>
+                  <h4 className="font-bold text-lg mb-2">Scalability</h4>
+                  <p className="text-blue-100">Scale up or down based on timeline and project scope</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <span className="text-3xl">🚀</span>
+                <div>
+                  <h4 className="font-bold text-lg mb-2">Equipment Operators</h4>
+                  <p className="text-blue-100">Specialized machinery and heavy equipment operators</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </Layout>
   );
