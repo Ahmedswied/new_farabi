@@ -1,0 +1,44 @@
+{
+  "navbar": {
+    "home": "الرئيسية",
+    "about": "معلومات عنا",
+    "services": "الخدمات",
+    "crew": "هيكل الفريق",
+    "organization": "الهيكل التنظيمي",
+    "projects": "المشاريع",
+    "contact": "تواصل معنا",
+    "admin": "لوحة التحكم",
+    "language": "اللغة"
+  },
+  "footer": {
+    "copyright": "© 2024 مجموعة الفارابي الدولية. جميع الحقوق محفوظة.",
+    "address": "القاهرة، مصر",
+    "phone": "+20 XXX XXX XXXX"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "add": "إضافة"
+  },
+  "crew": {
+    "title": "هيكل الفريق",
+    "description": "فريقنا الماهر"
+  },
+  "organization": {
+    "title": "الهيكل التنظيمي",
+    "description": "هيكل إدارتنا"
+  },
+  "projects": {
+    "title": "المشاريع",
+    "description": "محفظتنا"
+  },
+  "contact": {
+    "title": "تواصل معنا",
+    "description": "اطلب فريق عمل"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "crew": "Crew Structure",
+    "organization": "Organization",
+    "projects": "Projects",
+    "contact": "Contact",
+    "admin": "Admin",
+    "language": "Language"
+  },
+  "footer": {
+    "copyright": "© 2024 ALFarabi International Group. All rights reserved.",
+    "address": "Cairo, Egypt",
+    "phone": "+20 XXX XXX XXXX"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add"
+  },
+  "crew": {
+    "title": "Crew Structure",
+    "description": "Our skilled workforce"
+  },
+  "organization": {
+    "title": "Organization",
+    "description": "Our management structure"
+  },
+  "projects": {
+    "title": "Projects",
+    "description": "Our portfolio"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Request a crew"
+  }
+}

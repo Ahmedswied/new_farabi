@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ALFarabi International Group - Next.js Application
 
-## Getting Started
+A complete workforce and equipment supply business web application built with Next.js 14, TypeScript, Tailwind CSS, Firebase, and i18n multi-language support.
 
-First, run the development server:
+## 🚀 Project Overview
 
+This is a full-stack Next.js application for ALFarabi International Group with:
+- **Public Pages**: Home, About, Services, Crew Structure, Organization, Projects, Contact
+- **Admin Panel**: Crew Management, Job Categories, Services Management, Projects, Requests Inbox, Brochure Generator
+- **Multi-language Support**: English and Arabic (right-to-left)
+- **Firebase Integration**: Firestore database and authentication
+- **Responsive Design**: Tailwind CSS with mobile-first approach
+
+## 🛠️ Technology Stack
+
+- **Framework**: Next.js 16.1.6 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 3.x
+- **UI Icons**: Lucide React
+- **State Management**: Zustand
+- **i18n**: next-i18next (English & Arabic)
+- **Database**: Firebase/Firestore
+- **HTTP Client**: Axios
+
+## 📦 Quick Start
+
+### Installation
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Setup
+Create `.env.local`:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Development Server
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Visit `http://localhost:3000`
 
-## Learn More
+### Build for Production
+```bash
+npm run build
+npm run start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🌍 Website Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Home** (`/`) - Landing page with hero section
+- **About** (`/about`) - Company info, Cairo HQ, El Dabaa operations
+- **Services** (`/services`) - 4 service offerings with details
+- **Crew Structure** (`/crew`) - Standard 88-person crew breakdown
+- **Organization** (`/organization`) - Management team structure
+- **Projects** (`/projects`) - Portfolio of completed/ongoing projects
+- **Contact** (`/contact`) - Crew request submission form
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔐 Admin Panel
 
-## Deploy on Vercel
+Access at `/admin`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Demo Login:**
+- Email: `admin@alfarabi.com`
+- Password: `admin123`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Features:**
+- Dashboard with KPIs
+- Crew member management (CRUD)
+- Job categories management
+- Services configuration
+- Projects portfolio management
+- Crew requests inbox with status updates
+- PDF brochure generator
+
+## 🌐 Multi-Language Support
+
+- English (en) and Arabic (ar)
+- Language switcher in navigation bar
+- Translations in `public/locales/en` and `public/locales/ar`
+
+## 📁 Project Structure
+
+```
+src/
+├── app/                    # Next.js pages
+├── components/             # Reusable components
+├── lib/firebase/          # Firebase config & services
+├── store/                 # Zustand state stores
+public/
+└── locales/               # i18n translations
+```
+
+## 🚀 Deployment
+
+Deploy to Netlify, Vercel, or any Node.js-compatible platform.
+
+For Netlify, build output goes to `.next`.
+
+## 📝 Features
+
+✅ Responsive design
+✅ Multi-language (EN/AR)
+✅ Firebase integration
+✅ Admin panel with authentication
+✅ Form submission with validation
+✅ PDF generation ready
+✅ SEO optimized
+✅ TypeScript support
+✅ Tailwind CSS styling
