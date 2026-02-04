@@ -10,7 +10,7 @@ export default function RequestsPage() {
   const { requests, updateRequest } = useCrewStore();
   const [isLoading, setIsLoading] = useState(true);
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [filterStatus, setFilterStatus] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
+  const [filterStatus, setFilterStatus] = useState<'all' | 'new' | 'in-review' | 'contacted' | 'closed'>('all');
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
@@ -25,7 +25,8 @@ export default function RequestsPage() {
     ? requests 
     : requests.filter(r => r.status === filterStatus);
 
-  const handleStatusChange = (id: string, newStatus: 'pending' | 'approved' | 'rejected') => {
+  const handleStatusChange = (id: string | undefined, newStatus: 'new' | 'in-review' | 'contacted' | 'closed') => {
+    if (!id) return;
     const request = requests.find(r => r.id === id);
     if (request) {
       updateRequest(id, { ...request, status: newStatus });
@@ -34,11 +35,13 @@ export default function RequestsPage() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending':
+      case 'new':
         return 'bg-yellow-100 text-yellow-800';
-      case 'approved':
+      case 'in-review':
+        return 'bg-blue-100 text-blue-800';
+      case 'contacted':
         return 'bg-green-100 text-green-800';
-      case 'rejected':
+      case 'closed':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -58,7 +61,7 @@ export default function RequestsPage() {
 
       {/* Filter Buttons */}
       <div className="flex gap-2 flex-wrap">
-        {(['all', 'pending', 'approved', 'rejected'] as const).map(status => (
+        {(['all', 'new', 'in-review', 'contacted', 'closed'] as const).map(status => (
           <button
             key={status}
             onClick={() => setFilterStatus(status)}
@@ -68,8 +71,8 @@ export default function RequestsPage() {
                 : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
             }`}
           >
-            {status.charAt(0).toUpperCase() + status.slice(1)}
-            {status !== 'all' && ` (${requests.filter(r => r.status === status).length})`}
+            {status.charAt(0).toUpperCase() + status.slice(1).replace('-', ' ')}
+            {status !== 'all' && ` (${requests.filter(r => r.status === status as typeof filterStatus).length})`}
           </button>
         ))}
       </div>
@@ -87,7 +90,11 @@ export default function RequestsPage() {
               className="bg-white rounded-lg shadow overflow-hidden"
             >
               <button
-                onClick={() => setExpandedId(expandedId === request.id ? null : request.id)}
+                onClick={() => {
+                  if (request.id) {
+                    setExpandedId(expandedId === request.id ? null : request.id);
+                  }
+                }}
                 className="w-full px-6 py-4 flex justify-between items-center hover:bg-gray-50 transition-colors"
               >
                 <div className="flex-1 text-left">
@@ -98,7 +105,7 @@ export default function RequestsPage() {
                     </span>
                   </div>
                   <p className="text-gray-600 text-sm">
-                    {request.projectType} • {request.crewSize} crew members • {request.country}
+                    {request.projectType} • {request.requiredCrews} crew members • {request.country}
                   </p>
                 </div>
                 <div className="flex-shrink-0 ml-4">
@@ -126,7 +133,7 @@ export default function RequestsPage() {
                         </div>
                         <div>
                           <dt className="text-gray-600">Phone</dt>
-                          <dd className="font-medium">{request.phone || 'Not provided'}</dd>
+                          <dd className="font-medium">Not provided</dd>
                         </div>
                         <div>
                           <dt className="text-gray-600">Country</dt>
@@ -138,11 +145,7 @@ export default function RequestsPage() {
                         </div>
                         <div>
                           <dt className="text-gray-600">Crew Size</dt>
-                          <dd className="font-medium">{request.crewSize} members</dd>
-                        </div>
-                        <div>
-                          <dt className="text-gray-600">Duration</dt>
-                          <dd className="font-medium">{request.duration}</dd>
+                          <dd className="font-medium">{request.requiredCrews} members</dd>
                         </div>
                       </dl>
                     </div>
@@ -159,34 +162,44 @@ export default function RequestsPage() {
                     <h4 className="font-semibold text-gray-900 mb-3">Update Status</h4>
                     <div className="flex gap-2 flex-wrap">
                       <button
-                        onClick={() => handleStatusChange(request.id, 'pending')}
+                        onClick={() => handleStatusChange(request.id, 'new')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                          request.status === 'pending'
+                          request.status === 'new'
                             ? 'bg-yellow-500 text-white'
                             : 'bg-yellow-100 text-yellow-800 hover:bg-yellow-200'
                         }`}
                       >
-                        Pending
+                        New
                       </button>
                       <button
-                        onClick={() => handleStatusChange(request.id, 'approved')}
+                        onClick={() => handleStatusChange(request.id, 'in-review')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                          request.status === 'approved'
+                          request.status === 'in-review'
+                            ? 'bg-blue-500 text-white'
+                            : 'bg-blue-100 text-blue-800 hover:bg-blue-200'
+                        }`}
+                      >
+                        In Review
+                      </button>
+                      <button
+                        onClick={() => handleStatusChange(request.id, 'contacted')}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                          request.status === 'contacted'
                             ? 'bg-green-500 text-white'
                             : 'bg-green-100 text-green-800 hover:bg-green-200'
                         }`}
                       >
-                        Approved
+                        Contacted
                       </button>
                       <button
-                        onClick={() => handleStatusChange(request.id, 'rejected')}
+                        onClick={() => handleStatusChange(request.id, 'closed')}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                          request.status === 'rejected'
+                          request.status === 'closed'
                             ? 'bg-red-500 text-white'
                             : 'bg-red-100 text-red-800 hover:bg-red-200'
                         }`}
                       >
-                        Rejected
+                        Closed
                       </button>
                     </div>
                   </div>

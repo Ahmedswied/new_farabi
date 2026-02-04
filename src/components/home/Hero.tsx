@@ -3,13 +3,13 @@
 import Link from 'next/link';
 import { ArrowRight, Users, Zap, Shield } from 'lucide-react';
 
-nexport function Hero() {
+export function Hero() {
   return (
     <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
-            <img src="/logo.svg" alt="ALFarabi logo" className="w-28 h-28 mb-6 animate-bounce-slow" />
+            <img src="/images/logo.png" alt="ALFarabi logo" className="w-40 h-40 mb-6 animate-bounce-slow" />
             <h1 className="text-5xl font-bold mb-6 leading-tight">
               Professional Workforce Supply
             </h1>

@@ -8,6 +8,10 @@ interface CrewState {
   setRequests: (requests: CrewRequest[]) => void;
   addCrew: (crew: Crew) => void;
   removeCrew: (id: string) => void;
+  addCrewRequest: (request: Omit<CrewRequest, 'id' | 'createdAt'>) => void;
+  updateRequest: (id: string, request: Partial<CrewRequest>) => void;
+  updateCrew: (id: string, crew: Partial<Crew>) => void;
+  deleteCrew: (id: string) => void;
 }
 
 export const useCrewStore = create<CrewState>((set) => ({
@@ -20,4 +24,14 @@ export const useCrewStore = create<CrewState>((set) => ({
     set((state) => ({
       crews: state.crews.filter((c) => c.id !== id),
     })),
+  addCrewRequest: (request) => set((state) => ({ requests: [...state.requests, request as CrewRequest] })),
+  updateRequest: (id, request) => set((state) => ({
+    requests: state.requests.map(r => r.id === id ? { ...r, ...request } : r)
+  })),
+  updateCrew: (id, crew) => set((state) => ({
+    crews: state.crews.map(c => c.id === id ? { ...c, ...crew } : c)
+  })),
+  deleteCrew: (id) => set((state) => ({
+    crews: state.crews.filter((c) => c.id !== id),
+  })),
 }));

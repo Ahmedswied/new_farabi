@@ -27,8 +27,8 @@ export default function AdminDashboard() {
 
   const stats = [
     {
-      title: 'Active Requests',
-      value: requests.filter(r => r.status === 'pending').length,
+      title: 'New Requests',
+      value: requests.filter(r => r.status === 'new').length,
       icon: AlertCircle,
       color: 'bg-yellow-100 text-yellow-600',
       href: '/admin/requests'
@@ -144,14 +144,16 @@ export default function AdminDashboard() {
                           {request.companyName}
                         </h3>
                         <p className="text-sm text-gray-600">
-                          {request.projectType} • {request.crewSize} crew members
+                          {request.projectType} • {request.requiredCrews} crew members
                         </p>
                       </div>
                       <span
                         className={`px-2 py-1 text-xs font-medium rounded ${
-                          request.status === 'pending'
+                          request.status === 'new'
                             ? 'bg-yellow-100 text-yellow-800'
-                            : request.status === 'approved'
+                            : request.status === 'in-review'
+                            ? 'bg-blue-100 text-blue-800'
+                            : request.status === 'contacted'
                             ? 'bg-green-100 text-green-800'
                             : 'bg-red-100 text-red-800'
                         }`}

@@ -33,17 +33,15 @@ export default function ContactPage() {
     setLoading(true);
 
     try {
-      // Submit to Firebase
+      // Submit to store (in real app, this would be Firebase)
       await addCrewRequest({
         companyName: formData.companyName,
         country: formData.country,
         email: formData.email,
-        phone: formData.phone,
         projectType: formData.projectType,
-        crewSize: parseInt(formData.crewSize) || 0,
-        duration: formData.duration,
+        requiredCrews: parseInt(formData.crewSize) || 0,
         message: formData.message,
-        status: 'pending'
+        status: 'new'
       });
 
       setSuccess(true);

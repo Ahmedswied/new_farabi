@@ -21,10 +21,10 @@ export function Navbar() {
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <img src="/logo.svg" alt="ALFarabi logo" className="w-10 h-10 mr-3 animate-spin-slow" />
+              <img src="/images/logo.png" alt="ALFarabi logo" className="w-16 h-16 mr-3 animate-bounce-slow" />
               <span className="text-2xl font-bold text-gray-800">ALFarabi</span>
             </Link>
           </div>

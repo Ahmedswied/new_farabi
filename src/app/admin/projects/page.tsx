@@ -40,7 +40,7 @@ export default function ProjectsManagementPage() {
     client: '',
     location: '',
     type: '',
-    status: 'upcoming' as const,
+    status: 'upcoming' as 'completed' | 'ongoing' | 'upcoming',
     duration: '',
     crewSize: '',
     description: ''
@@ -103,7 +103,7 @@ export default function ProjectsManagementPage() {
       client: project.client,
       location: project.location,
       type: project.type,
-      status: project.status,
+      status: project.status as 'completed' | 'ongoing' | 'upcoming',
       duration: project.duration,
       crewSize: project.crewSize.toString(),
       description: project.description

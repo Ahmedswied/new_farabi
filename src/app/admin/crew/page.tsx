@@ -220,16 +220,16 @@ export default function CrewManagementPage() {
                 crews.map(crew => (
                   <tr key={crew.id} className="border-b hover:bg-gray-50">
                     <td className="px-6 py-4 font-medium">{crew.name}</td>
-                    <td className="px-6 py-4">{crew.specialization}</td>
-                    <td className="px-6 py-4 text-sm text-gray-600">{crew.certifications}</td>
-                    <td className="px-6 py-4">{crew.experience} years</td>
+                    <td className="px-6 py-4">{crew.description}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{crew.totalWorkers} workers</td>
+                    <td className="px-6 py-4">{crew.isActive ? 'Active' : 'Inactive'}</td>
                     <td className="px-6 py-4">
                       <span className={`px-2 py-1 text-xs font-medium rounded ${
-                        crew.availability
+                        crew.isActive
                           ? 'bg-green-100 text-green-800'
                           : 'bg-gray-100 text-gray-800'
                       }`}>
-                        {crew.availability ? 'Available' : 'Unavailable'}
+                        {crew.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
                     <td className="px-6 py-4 flex gap-2">
@@ -240,7 +240,7 @@ export default function CrewManagementPage() {
                         <Edit2 className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={() => deleteCrew(crew.id)}
+                        onClick={() => crew.id && deleteCrew(crew.id)}
                         className="text-red-600 hover:text-red-800"
                       >
                         <Trash2 className="w-5 h-5" />
